@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 class UrlController extends Controller
 {
+    // Método para crear y acortar el URL
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -24,9 +25,16 @@ class UrlController extends Controller
         return response()->json(['short_url' => $shortUrl], 201);
     }
 
+    // Método para redirigir usando el short URL
     public function redirect($short_url)
     {
         $url = Url::where('short_url', $short_url)->firstOrFail();
+
+        /* Almacenamos el resultado de la consulta en caché durante 60 minutos
+        $url = Cache::remember("short_url_{$short_url}", 60, function () use ($short_url) {
+            return Url::where('short_url', $short_url)->firstOrFail();
+        });*/
+
         return redirect($url->original_url);
     }
 }
