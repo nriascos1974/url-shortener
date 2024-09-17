@@ -33,9 +33,11 @@ class UrlController extends Controller
         /* Almacenamos el resultado de la consulta en caché durante 60 minutos
         $url = Cache::remember("short_url_{$short_url}", 60, function () use ($short_url) {
             return Url::where('short_url', $short_url)->firstOrFail();
-        });*/
+        });return redirect($url->original_url);*/
 
-        return redirect($url->original_url);
+
+        // En lugar de redirigir, devuelve la URL como respuesta JSON
+        return response()->json(['url' => $url->original_url]);
     }
 
     // Método para devolver todas las URLs
