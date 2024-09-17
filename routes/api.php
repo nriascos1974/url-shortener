@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UrlController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,8 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-// API routes for URL shortening and redirection
+//Ruta para crear url corta
 Route::post('/url', [UrlController::class, 'store']);
-Route::get('/{short_url}', [UrlController::class, 'redirect']);
 
+//Ruta para eliminar URL
+Route::delete('/url/{id}', [UrlController::class, 'delete']);
+
+//Ruta para devolver todas las URL cortas creadas
+Route::get('/urls', [UrlController::class, 'listurls']);
+
+//Ruta para redireccionar con la ruta corta enviada
+Route::get('/{short_url}', [UrlController::class, 'redirect']);

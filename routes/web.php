@@ -18,7 +18,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/url', [UrlController::class, 'store']);
-
-Route::get('/{short_url}', [UrlController::class, 'redirect']);
-

@@ -37,4 +37,23 @@ class UrlController extends Controller
 
         return redirect($url->original_url);
     }
+
+    // Método para devolver todas las URLs
+    public function listurls()
+    {
+        $urls = Url::all();  // Obtener todas las URLs
+        return response()->json($urls,200);  // Devolver como JSON
+
+
+    }
+
+    // Método para eliminar un URL
+    public function delete($id)
+    {
+        $url = Url::findOrFail($id);
+        $url->delete();
+
+        return response()->json(['message' => 'URL deleted successfully']);
+    }
+
 }
