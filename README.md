@@ -26,8 +26,10 @@ para poder ejecutarlo localmente, siga los pasos descritos a continuacion:
    ejecuta: php artisan migrate
 
 6. Iniciar el Servidor de Desarrollo: 
-   ejecuta: php artisan serve
-   
-Esto levantará el servidor en http://localhost:8000 por defecto. Si todo esta bien al suvir el servidor e ingresar la URL anterior te abrira una pagina de LARAVEL.
+   ejecuta: php artisan serve. Esto levantará el servidor en http://localhost:8000 por defecto. Si todo esta bien al suvir el servidor e ingresar la URL anterior te abrira una pagina de LARAVEL.
+
+7. Documentacion de las Rutas
+   http://localhost:8000/api/documentation
+
 
 NOTA: Para testear las 4 rutas del backend ejecta: php artisan test.
