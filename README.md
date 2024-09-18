@@ -1,4 +1,4 @@
-## About Proyect Backend Url Shortener
+## About Project Backend Url Shortener
 
 Este proyecto contiene 4 APIs, con el CRD para la creacion, Consulta y Eliminacion de URLs cortas.
 para poder ejecutarlo localmente, siga los pasos descritos a continuacion:
