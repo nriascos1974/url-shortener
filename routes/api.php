@@ -29,5 +29,5 @@ Route::delete('/url/{id}', [UrlController::class, 'delete']);
 //Ruta para devolver todas las URL cortas creadas
 Route::get('/urls', [UrlController::class, 'listurls']);
 
-//Ruta para redireccionar con la ruta corta enviada
-Route::get('/{short_url}', [UrlController::class, 'redirect']);
+//Ruta para devolver la URL original con la ruta corta enviada
+Route::get('/url/{short_url}', [UrlController::class, 'getOriginalUrl']);

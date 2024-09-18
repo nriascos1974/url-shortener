@@ -26,8 +26,8 @@ class UrlShortenerTest extends TestCase
         $response->assertJsonStructure(['short_url']);
     }
 
-    // Prueba para verificar la redirección del URL acortado
-    public function test_redirect_to_original_url()
+    // Prueba para verificar que se redirecciona correctamente a la URL original
+    public function test_get_original_url()
     {
         // Se crea un URL acortado en la base de datos
         $url = Url::create([
@@ -35,13 +35,15 @@ class UrlShortenerTest extends TestCase
             'short_url' => 'abc123'
         ]);
 
-        /// Se envia una solicitud GET para redirigir al URL acortado
-        $response = $this->get('/api/abc123');
+        // Se envía una solicitud GET a la API para obtener la URL original
+        $response = $this->getJson('/api/url/abc123');
 
-        // Se verifica que la respuesta redirige al URL original
-        $response->assertRedirect('https://example.com');
+        // Se verifica que la respuesta sea correcta y contenga la URL original
+        $response->assertStatus(200)
+            ->assertJson([
+                'original_url' => 'https://example.com'
+            ]);
     }
-
 
 
     // Prueba para devolver todas las URLs

@@ -25,26 +25,23 @@ class UrlController extends Controller
         return response()->json(['short_url' => $shortUrl], 201);
     }
 
-    // Método para redirigir usando el short URL
-    public function redirect($short_url)
+    // Método para devolver la URL original usando el short URL
+    public function getOriginalUrl($short_url)
     {
+        // Buscar el URL original en la base de datos
         $url = Url::where('short_url', $short_url)->firstOrFail();
 
-        /* Almacenamos el resultado de la consulta en caché durante 60 minutos
-        $url = Cache::remember("short_url_{$short_url}", 60, function () use ($short_url) {
-            return Url::where('short_url', $short_url)->firstOrFail();
-        });return redirect($url->original_url);*/
-
-
-        // En lugar de redirigir, devuelve la URL como respuesta JSON
-        return response()->json(['url' => $url->original_url]);
+        // Devolver la URL original en formato JSON
+        return response()->json([
+            'original_url' => $url->original_url
+        ], 200);
     }
 
     // Método para devolver todas las URLs
     public function listurls()
     {
         $urls = Url::all();  // Obtener todas las URLs
-        return response()->json($urls,200);  // Devolver como JSON
+        return response()->json($urls, 200);  // Devolver como JSON
 
 
     }
@@ -57,5 +54,4 @@ class UrlController extends Controller
 
         return response()->json(['message' => 'URL deleted successfully']);
     }
-
 }
