@@ -1,0 +1,203 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Acortador de URLs",
+        "description": "Esta es la documentación de la API para el servicio de acortador de URLs.",
+        "contact": {
+            "email": "soporte@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/url": {
+            "post": {
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Acorta una URL",
+                "description": "Genera una URL corta para un URL original",
+                "operationId": "storeUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "original_url"
+                                ],
+                                "properties": {
+                                    "original_url": {
+                                        "type": "string",
+                                        "example": "https://example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "URL acortada creada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "short_url": {
+                                            "type": "string",
+                                            "example": "abc123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                }
+            }
+        },
+        "/api/url/{short_url}": {
+            "get": {
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Obtiene la URL original desde una URL corta",
+                "description": "Devuelve la URL original a partir de la URL acortada",
+                "operationId": "getOriginalUrl",
+                "parameters": [
+                    {
+                        "name": "short_url",
+                        "in": "path",
+                        "description": "La URL corta",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "URL original devuelta",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "original_url": {
+                                            "type": "string",
+                                            "example": "https://example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "URL no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/urls": {
+            "get": {
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Listar todas las URLs",
+                "description": "Devuelve todas las URLs acortadas almacenadas en la base de datos",
+                "operationId": "listUrls",
+                "responses": {
+                    "200": {
+                        "description": "Lista de URLs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "original_url": {
+                                                "type": "string",
+                                                "example": "https://example.com"
+                                            },
+                                            "short_url": {
+                                                "type": "string",
+                                                "example": "abc123"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-09-17T12:34:56.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-09-17T12:34:56.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/url/{id}": {
+            "delete": {
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Eliminar una URL",
+                "description": "Elimina una URL acortada de la base de datos",
+                "operationId": "deleteUrl",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "El ID de la URL que se va a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "URL eliminada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "URL deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "URL no encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "URL",
+            "description": "URL"
+        }
+    ]
+}
