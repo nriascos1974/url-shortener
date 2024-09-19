@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000','http://servidor74070305384.s3-website.us-east-2.amazonaws.com/'],
+    'allowed_origins' => [
+        'http://localhost:3000', // Para desarrollo local
+        'http://servidor74070305384.s3-website.us-east-2.amazonaws.com', // Para tu sitio en S3
+    ],
 
     'allowed_origins_patterns' => [],
 
